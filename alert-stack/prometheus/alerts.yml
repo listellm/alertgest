@@ -1,0 +1,37 @@
+groups:
+  - name: test_alerts
+    interval: 30s
+    rules:
+      - alert: TestHighMemory
+        expr: test_memory_usage_percent > 90
+        for: 1m
+        labels:
+          severity: warning
+          namespace: production
+          team: platform
+        annotations:
+          summary: "Memory usage above 90%"
+          description: "Test alert: Memory at {{ $value }}%"
+          runbook_url: "https://wiki.example.com/runbooks/high-memory"
+
+      - alert: TestCrashLooping
+        expr: test_pod_restarts > 5
+        for: 30s
+        labels:
+          severity: critical
+          namespace: production
+          team: platform
+        annotations:
+          summary: "Pod crash looping"
+          description: "Test alert: Pod restarted {{ $value }} times"
+          runbook_url: "https://wiki.example.com/runbooks/crash-loop"
+
+      - alert: TestMultipleFiring
+        expr: test_rapid_fire > 0
+        labels:
+          severity: info
+          namespace: staging
+          team: developers
+        annotations:
+          summary: "Rapid fire test alert"
+          description: "This alert fires frequently for testing"
