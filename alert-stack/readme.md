@@ -6,6 +6,7 @@ Basic Prometheus and AlertManager stack for testing alert generation, routing, a
 
 | Component | Purpose | Port | UI |
 |-----------|---------|------|-----|
+| **Landing Page** | Dashboard with links to all services | 3000 | http://localhost:3000 |
 | **Prometheus** | Metric collection & alert evaluation | 9090 | http://localhost:9090 |
 | **AlertManager** | Alert routing, grouping, deduplication | 9093 | http://localhost:9093 |
 | **Pushgateway** | Receives metrics from alert generator | 9091 | http://localhost:9091 |
@@ -21,7 +22,16 @@ cd alert-stack
 docker compose up -d
 ```
 
-### 2. Verify Services
+### 2. Access the Dashboard
+
+```bash
+# Open the landing page dashboard
+open http://localhost:3000
+```
+
+The landing page provides quick links to all services in your browser.
+
+### 3. Verify Services
 
 ```bash
 # Check all services are running
@@ -31,9 +41,10 @@ docker compose ps
 curl http://localhost:9090/-/healthy  # Prometheus
 curl http://localhost:9093/-/healthy  # AlertManager
 curl http://localhost:8080/health     # Webhook receiver
+curl http://localhost:3000/health     # Landing page
 ```
 
-### 3. View Alert Flow
+### 4. View Alert Flow
 
 **Prometheus UI:**
 ```bash
